@@ -5,7 +5,3 @@ export default function App() {
         </>
     )
 }
-
-function Deck() {
-    return ``;
-}

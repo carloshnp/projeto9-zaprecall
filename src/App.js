@@ -1,25 +1,23 @@
-import DECK from './Deck'
+import DECK from './DECK'
 import styled from 'styled-components'
-import Flashcard from './Flashcard'
+import Main from './Main'
+import Header from './Header'
+import Footer from './Footer'
 
 export default function App() {
+
     return (
         <>
-        <Deck>
-            <div className="header">
-                <span>ZapRecall</span>
-            </div>
-            <div className="main">
-                <Flashcard />
-            </div>
-            <div className="footer">
-            </div>
-        </Deck>
+        <Container>
+            <Header />
+            <Main deck={DECK} />
+            <Footer />
+        </Container>
         </>
     )
 }
 
-const Deck = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -38,15 +36,6 @@ const Deck = styled.div`
   font-family: "Righteous";
   z-index: 1;
   background-color: var(--cor-fundo);
-  }
-
-  .main {
-  max-height: 400px;
-  overflow-y: auto;
-  }
-
-  .main::-webkit-scrollbar {
-  display: none;
   }
 
   .header img {

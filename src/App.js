@@ -1,28 +1,24 @@
-import DECK from "./DECK";
-import styled from "styled-components";
-import Main from "./Main";
-import Header from "./Header";
-import Footer from "./Footer";
-import { createGlobalStyle } from "styled-components";
+import DECK from "./DECK"
+import styled from "styled-components"
+import Main from "./Main"
+import Header from "./Header"
+import Footer from "./Footer"
+import { createGlobalStyle } from "styled-components"
+import { useState } from "react"
 
 export default function App() {
 
-  // const [card, setCard] = useState('id')
-
-  // mostrarCard: deve mostrar a pergunta no flashcard ao clicar na setaPlay, substituindo o 'Pergunta {id}' pela {pergunta}, e escondendo o botão setaPlay e mostrando o botão setaVirar
-  // function mostrarCard() {
-  //    if (card=)
-  // }
-
-  // mostrarResposta: deve mostrar a resposta no flashcard ao clicar na setaVirar, substituindo a {pergunta} pela {resposta}, e escondendo o botão setaVirar
+  const [deck, setDeck] = useState(DECK)
+  const [contador, setContador] = useState(0)
+  console.log(deck)
 
   return (
     <>
       <GlobalStyle />
       <Container>
         <Header />
-        <Main deck={DECK} />
-        <Footer />
+        <Main deck={deck} setDeck={setDeck} />
+        <Footer deck={deck} contador={contador} setContador={setContador}/>
       </Container>
     </>
   );

@@ -3,9 +3,56 @@ import styled from 'styled-components'
 
 export default function Main(props) {
 
-    const { deck } = props
+    const { deck, setDeck } = props
 
-    const deckMap = deck.map((flashcard) => <Flashcard flashcard={flashcard}/>)
+    function mostrarPergunta(idPergunta) {
+        const novoDeck = deck.map(flashcard => {
+            let novoFlashcard = {...flashcard}
+
+            if (flashcard.id !== idPergunta) {
+                novoFlashcard = {...flashcard, mostrar: ''}
+            }
+
+            if (flashcard.id === idPergunta) {
+                novoFlashcard = {...flashcard, mostrar: 'pergunta'}
+            }
+
+            return novoFlashcard
+        })
+        setDeck(novoDeck)
+    }
+
+    function mostrarResposta(idResposta) {
+        const novoDeck = deck.map(flashcard => {
+            let novoFlashcard = {...flashcard}
+
+            if (flashcard.id === idResposta) {
+                novoFlashcard = {...flashcard, mostrar: 'resposta'}
+            }
+            return novoFlashcard
+        })
+        setDeck(novoDeck)
+    }
+
+    function renderizarFlashcard(flashcard) {
+        if (flashcard['mostrar'] === '') {
+            return (
+                <Flashcard flashcard={flashcard} mostrarPergunta={mostrarPergunta}/>
+                )
+        }
+        else if (flashcard['mostrar'] === 'pergunta') {
+            return (
+                <Flashcard flashcard={flashcard} mostrarResposta={mostrarResposta} />
+            )
+        }
+        else if (flashcard['mostrar'] === 'resposta') {
+            return (
+            <Flashcard flashcard={flashcard} />
+            )
+        }
+    }
+
+    const deckMap = deck.map((flashcard) => renderizarFlashcard(flashcard))
     console.log(deckMap)
     return (
         <Container>

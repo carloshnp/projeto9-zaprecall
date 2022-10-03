@@ -3,16 +3,32 @@ import setaVirar from './assets/img/seta_virar.png'
 import setaPlay from './assets/img/seta_play.png'
 
 export default function Flashcard(props) {
-  const { id, pergunta, resposta } = props.flashcard;
-  return (
-    <Container>
-      <p>Pergunta {id}</p>
-      <p>{pergunta}</p>
-      <p>{resposta}</p>
-      <img src={setaPlay} alt='Play' />
-      <img src={setaVirar} alt='Virar' />
-    </Container>
-  )
+  const {mostrarPergunta, mostrarResposta} = props
+  const { id, pergunta, resposta, mostrar } = props.flashcard
+
+  if (mostrar === '') {
+    return (
+      <Container>
+        <p>Pergunta {id}</p>
+        <img src={setaPlay} onClick={() => mostrarPergunta(id)} alt='Play' />
+      </Container>
+    )
+  }
+  else if (mostrar === 'pergunta') {
+    return (
+      <Container>
+        <p>{pergunta}</p>
+        <img src={setaVirar} onClick={() => mostrarResposta(id)} alt='Virar'/>
+      </Container>
+    )
+  }
+  else if (mostrar === 'resposta') {
+    return (
+      <Container>
+        <p>{resposta}</p>
+      </Container>
+    )
+  }
 }
 
 const Container = styled.div`

@@ -8,15 +8,14 @@ export default function Main(props) {
     function mostrarPergunta(idPergunta) {
         const novoDeck = deck.map(flashcard => {
             let novoFlashcard = {...flashcard}
-
-            if (flashcard.id !== idPergunta) {
+            if (flashcard.mostrar === 'pergunta' || flashcard.mostrar === 'resposta') {
                 novoFlashcard = {...flashcard, mostrar: ''}
             }
-
-            if (flashcard.id === idPergunta) {
-                novoFlashcard = {...flashcard, mostrar: 'pergunta'}
+            else if (flashcard.mostrar === '') {
+                if (flashcard.id === idPergunta) {
+                    novoFlashcard = {...flashcard, mostrar: 'pergunta'}
+                }
             }
-
             return novoFlashcard
         })
         setDeck(novoDeck)
@@ -48,6 +47,21 @@ export default function Main(props) {
         else if (flashcard['mostrar'] === 'resposta') {
             return (
             <Flashcard flashcard={flashcard} />
+            )
+        }
+        else if(flashcard.mostrar === 'Errou') {
+            return (
+                <Flashcard flashcard={flashcard} />
+            )
+        }
+        else if(flashcard.mostrar === 'Quase') {
+            return (
+                <Flashcard flashcard={flashcard} />
+            )
+        }
+        else if(flashcard.mostrar === 'Zap') {
+            return (
+                <Flashcard flashcard={flashcard} />
             )
         }
     }

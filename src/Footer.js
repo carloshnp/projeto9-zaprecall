@@ -83,4 +83,5 @@ const Botao = styled.button`
   border-radius: 5px;
   border: 0;
   padding: 5px;
+  cursor: pointer;
 `;

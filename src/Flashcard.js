@@ -77,6 +77,10 @@ const ContainerFechada = styled.div`
     text-decoration: ${props => props.mostrar === 'Errou' ? 'line-through' : props.mostrar === 'Quase' ? 'line-through' : props.mostrar === 'Zap' ? 'line-through' : 'none' };
     color: ${props => props.mostrar === 'Errou' ? '#FF3030' : props.mostrar === 'Quase' ? '#FF922E' : props.mostrar === 'Zap' ? '#2FBE34' : '#333333' };
   }
+
+  img {
+    cursor: pointer;
+  }
 `
 
 const ContainerAberta = styled.div`
@@ -100,5 +104,6 @@ const ContainerAberta = styled.div`
     position: absolute;
     bottom: 10px;
     right: 10px;
+    cursor: pointer;
   }
 `

@@ -6,7 +6,7 @@ import quase from './assets/img/icone_quase.png'
 import errou from './assets/img/icone_erro.png'
 
 export default function Flashcard(props) {
-  const {mostrarPergunta, mostrarResposta} = props
+  const { mostrarPergunta, mostrarResposta, corrigirFlashcard} = props
   const { id, pergunta, resposta, mostrar } = props.flashcard
   console.log(mostrar)
 
@@ -30,6 +30,11 @@ export default function Flashcard(props) {
     return (
       <ContainerAberta mostrar={mostrar}>
         <p>{resposta}</p>
+        <ContainerBotoes>
+            <Botao erroZap onClick={e => corrigirFlashcard(e)}>Não lembrei</Botao>
+            <Botao quaseZap onClick={e => corrigirFlashcard(e)}>Quase não lembrei</Botao>
+            <Botao onClick={e => corrigirFlashcard(e)}>Zap!</Botao>
+        </ContainerBotoes>
       </ContainerAberta>
     )
   }
@@ -77,10 +82,6 @@ const ContainerFechada = styled.div`
     text-decoration: ${props => props.mostrar === 'Errou' ? 'line-through' : props.mostrar === 'Quase' ? 'line-through' : props.mostrar === 'Zap' ? 'line-through' : 'none' };
     color: ${props => props.mostrar === 'Errou' ? '#FF3030' : props.mostrar === 'Quase' ? '#FF922E' : props.mostrar === 'Zap' ? '#2FBE34' : '#333333' };
   }
-
-  img {
-    cursor: pointer;
-  }
 `
 
 const ContainerAberta = styled.div`
@@ -107,3 +108,27 @@ const ContainerAberta = styled.div`
     cursor: pointer;
   }
 `
+
+const ContainerBotoes = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`
+const Botao = styled.button`
+  width: 90px;
+  font-family: "Righteous";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  background: ${props => props.erroZap ? '#FF3030' : props.quaseZap ? '#FF922E' : '#2FBE34'};
+  border-radius: 5px;
+  border: 0;
+  padding: 5px;
+  cursor: pointer;
+`;

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export default function Main(props) {
 
-    const { deck, setDeck } = props
+    const { deck, setDeck, contador, setContador, contadorIcone, setContadorIcone } = props
 
     function mostrarPergunta(idPergunta) {
         const novoDeck = deck.map(flashcard => {
@@ -33,6 +33,33 @@ export default function Main(props) {
         setDeck(novoDeck)
     }
 
+    function corrigirFlashcard(e) {
+        const comandoBotao = e.target.textContent
+        const novoDeck = deck.map(flashcard => {
+            let novoContadorIcone = []
+            let novoFlashcard = {...flashcard}
+
+            if (flashcard.mostrar === 'resposta') {
+                if (comandoBotao === 'Não lembrei') {
+                    novoFlashcard = {...flashcard, mostrar: 'Errou'}
+                    novoContadorIcone = [...contadorIcone, 'errou']
+                }
+                else if (comandoBotao === 'Quase não lembrei') {
+                    novoFlashcard = {...flashcard, mostrar: 'Quase'}
+                    novoContadorIcone = [...contadorIcone, 'quase']
+                }
+                else if (comandoBotao === 'Zap!') {
+                    novoFlashcard = {...flashcard, mostrar: 'Zap'}
+                    novoContadorIcone = [...contadorIcone, 'zap']
+                }
+                setContadorIcone(novoContadorIcone)
+                setContador(contador + 1)
+            }
+            return novoFlashcard
+        })
+        setDeck(novoDeck)
+  }
+
     function renderizarFlashcard(flashcard) {
         if (flashcard.mostrar === '') {
             return (
@@ -46,7 +73,7 @@ export default function Main(props) {
         }
         else if (flashcard.mostrar === 'resposta') {
             return (
-            <Flashcard flashcard={flashcard} />
+            <Flashcard flashcard={flashcard} contador={contador} setContador={setContador} corrigirFlashcard={corrigirFlashcard} />
             )
         }
         else if(flashcard.mostrar === 'Errou') {
@@ -67,7 +94,6 @@ export default function Main(props) {
     }
 
     const deckMap = deck.map((flashcard) => renderizarFlashcard(flashcard))
-    console.log(deckMap)
     return (
         <Container>
             {deckMap}

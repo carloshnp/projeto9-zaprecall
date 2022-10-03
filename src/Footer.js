@@ -1,44 +1,38 @@
 import styled from "styled-components";
+import zap from './assets/img/icone_certo.png'
+import quase from './assets/img/icone_quase.png'
+import errou from './assets/img/icone_erro.png'
 
 export default function Footer(props) {
-  const { deck, setDeck, contador, setContador } = props
+  const { deck, contador, contadorIcone } = props
   const tamanhoDeck = deck.length
+  const iconeMap = contadorIcone.map((icone) => renderizarIcone(icone))
 
-  function corrigirFlashcard(e) {
-    const comandoBotao = e.target.textContent
-    console.log(comandoBotao)
-    const novoDeck = deck.map(flashcard => {
-      let novoFlashcard = {...flashcard}
-
-      if (flashcard.mostrar === 'resposta') {
-        console.log(flashcard)
-        if (comandoBotao === 'Não lembrei') {
-          novoFlashcard = {...flashcard, mostrar: 'Errou'}
-        }
-        else if (comandoBotao === 'Quase não lembrei') {
-          novoFlashcard = {...flashcard, mostrar: 'Quase'}
-        }
-        else if (comandoBotao === 'Zap!') {
-          novoFlashcard = {...flashcard, mostrar: 'Zap'}
-        }
-        setContador(contador + 1)
-      }
-      console.log(novoFlashcard)
-      return novoFlashcard
-    })
-    console.log(novoDeck)
-    setDeck(novoDeck)
+  function renderizarIcone(icone) {
+    if (icone === 'errou') {
+      return (
+        <img src={errou} alt={'errou'} />
+      )
+    }
+    else if (icone === 'quase') {
+      return (
+        <img src={quase} alt={'quase'} />
+      )
+    }
+    if (icone === 'zap') {
+      return (
+        <img src={zap} alt={'zap'} />
+      )
+    }
   }
 
   return (
     <>
       <ContainerFooter>
-        <ContainerBotoes>
-            <Botao errou onClick={e => corrigirFlashcard(e)}>Não lembrei</Botao>
-            <Botao quase onClick={e => corrigirFlashcard(e)}>Quase não lembrei</Botao>
-            <Botao onClick={e => corrigirFlashcard(e)}>Zap!</Botao>
-        </ContainerBotoes>
         <p>{contador}/{tamanhoDeck} concluídos</p>
+        <ContainerIcone>
+          {iconeMap}
+        </ContainerIcone>
       </ContainerFooter>
     </>
   );
@@ -46,7 +40,7 @@ export default function Footer(props) {
 
 const ContainerFooter = styled.div`
   width: 100%;
-  min-height: 50px;
+  min-height: 100px;
   background-color: #ffffff;
   position: fixed;
   bottom: 0;
@@ -61,27 +55,11 @@ const ContainerFooter = styled.div`
   padding: 10px;
 `;
 
-const ContainerBotoes = styled.div`
+const ContainerIcone = styled.div`
   display: flex;
-  width: 80%;
-  justify-content: space-between;
-  margin: 20px;
+  margin-top: 8px;
+
+  img {
+    padding: 0px 2px;
+  }
 `
-const Botao = styled.button`
-  width: 90px;
-  font-family: "Righteous";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #ffffff;
-  background: ${props => props.errou ? '#FF3030' : props.quase ? '#FF922E' : '#2FBE34'};
-  border-radius: 5px;
-  border: 0;
-  padding: 5px;
-  cursor: pointer;
-`;

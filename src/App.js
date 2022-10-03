@@ -12,7 +12,9 @@ export default function App() {
   const [deck, setDeck] = useState(DECK)
   const [contador, setContador] = useState(0)
   const [telaInicial, setTelaInicial] = useState(true)
+  const [contadorIcone, setContadorIcone] = useState([])
 
+  console.log(contadorIcone)
   function mudarTela() {
     setTelaInicial(false)
   }
@@ -27,8 +29,8 @@ export default function App() {
       </TelaInicial>
       <Container telaInicial={telaInicial}>
         <Header />
-        <Main deck={deck} setDeck={setDeck} />
-        <Footer deck={deck} contador={contador} setDeck={setDeck} setContador={setContador}/>
+        <Main deck={deck} setDeck={setDeck} contador={contador} setContador={setContador} contadorIcone={contadorIcone} setContadorIcone={setContadorIcone} />
+        <Footer deck={deck} contador={contador} contadorIcone={contadorIcone} />
       </Container>
     </>
   );

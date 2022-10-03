@@ -34,17 +34,17 @@ export default function Main(props) {
     }
 
     function renderizarFlashcard(flashcard) {
-        if (flashcard['mostrar'] === '') {
+        if (flashcard.mostrar === '') {
             return (
                 <Flashcard flashcard={flashcard} mostrarPergunta={mostrarPergunta}/>
                 )
         }
-        else if (flashcard['mostrar'] === 'pergunta') {
+        else if (flashcard.mostrar=== 'pergunta') {
             return (
                 <Flashcard flashcard={flashcard} mostrarResposta={mostrarResposta} />
             )
         }
-        else if (flashcard['mostrar'] === 'resposta') {
+        else if (flashcard.mostrar === 'resposta') {
             return (
             <Flashcard flashcard={flashcard} />
             )
